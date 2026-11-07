@@ -46,3 +46,10 @@ trailing `~` with `InvalidPointerError`.
 Array indices are also strict: `01` is not a valid index, and neither is
 `-1`.  `resolve(doc, "/arr/01")` raises `ResolutionError` even if the array
 has more than two elements.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
